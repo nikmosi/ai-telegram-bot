@@ -24,6 +24,8 @@ def trim_history(history, max_length=4096):
         removed_message = history.pop(0)
         current_length -= len(removed_message["content"])
     return history
+    #fasdfdasfasfdfds
 
 @dp.message_handler(commands=['clear'])
-async def process_clear_command(message: types.Message)
+async def process_clear_command(message: types.Message):
+                                                          
