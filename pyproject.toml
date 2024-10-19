@@ -1,0 +1,18 @@
+[project]
+name = "ai-telegram-bot"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "nikmosi", email = "i@nikmosi.ru"},
+]
+dependencies = [
+    "aiogram>=3.13.1",
+    "g4f>=0.3.3.1",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
