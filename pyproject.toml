@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Default template for PDM package"
 authors = [
     {name = "nikmosi", email = "i@nikmosi.ru"},
+    {name = "*8_a.k_8", email = "kinglook1998@gmail.com"}
 ]
 dependencies = [
     "aiogram>=3.13.1",
