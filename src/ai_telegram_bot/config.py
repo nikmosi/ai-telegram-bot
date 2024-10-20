@@ -7,3 +7,4 @@ class Settings(BaseSettings):
     )
 
     token: str = "xxx"
+    admin_id: int = 5623396563

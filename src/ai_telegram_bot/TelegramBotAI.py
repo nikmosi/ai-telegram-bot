@@ -15,7 +15,7 @@ bot = Bot(token=settings.token)
 dp = Dispatcher()
 
 
-ADMIN_ID = 5623396563
+ADMIN_ID = settings.admin_id
 
 
 conversation_history = {}
