@@ -5,13 +5,13 @@ import g4f
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.types import Message
+from config import Settings
 from g4f import Provider
 
 logging.basicConfig(level=logging.INFO)
 
-
-API_TOKEN = "YOUR_BOT_API_TOKEN"
-bot = Bot(token=API_TOKEN)
+settings = Settings()
+bot = Bot(token=settings.token)
 dp = Dispatcher()
 
 
