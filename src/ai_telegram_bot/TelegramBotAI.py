@@ -2,13 +2,16 @@ import logging
 from aiogram import Bot, Dispatcher, types
 import g4f
 from aiogram.utils import executor
+from ai_telegram_bot.config import Settings
+
+
+settings = Settings()
 
 # Включите логирование
 logging.basicConfig(level=logging.INFO)
 
 # Инициализация бота
-API_TOKEN = '7448755655:AAHqKs0arVbnf45ocqyT-20L21O5Rhqonf4'
-bot = Bot(token=API_TOKEN)
+bot = Bot(token=settings.token)
 dp = Dispatcher(bot)
 
 # ID администратора (твой Telegram ID)
