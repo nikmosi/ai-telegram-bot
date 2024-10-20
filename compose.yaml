@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: ai_telegram_bot
+    environment:
+      - PYTHONUNBUFFERED=1
+    env_file: .env
