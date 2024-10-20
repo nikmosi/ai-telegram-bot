@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:6b06252cd0cd8dfc61bf98767ea3be0929fe18b6a34f71ecc817df5cce7a806b"
+content_hash = "sha256:e137135c68ef7b4308f53e4b57b6b56b7832c7e3b28dfb874530bd5d8a813995"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -84,6 +84,20 @@ files = [
     {file = "aiohttp-3.10.10-cp312-cp312-win32.whl", hash = "sha256:59bb3c54aa420521dc4ce3cc2c3fe2ad82adf7b09403fa1f48ae45c0cbde6628"},
     {file = "aiohttp-3.10.10-cp312-cp312-win_amd64.whl", hash = "sha256:0e1b370d8007c4ae31ee6db7f9a2fe801a42b146cec80a86766e7ad5c4a259cf"},
     {file = "aiohttp-3.10.10.tar.gz", hash = "sha256:0631dd7c9f0822cc61c88586ca76d5b5ada26538097d0f1df510b082bad3411a"},
+]
+
+[[package]]
+name = "aiohttp-socks"
+version = "0.9.0"
+summary = "Proxy connector for aiohttp"
+groups = ["default"]
+dependencies = [
+    "aiohttp>=3.10.0",
+    "python-socks[asyncio]<3.0.0,>=2.4.3",
+]
+files = [
+    {file = "aiohttp_socks-0.9.0-py3-none-any.whl", hash = "sha256:90a8211fd5b904ccbd010900105f1fd2dab20ae8a07df508df399036ad8d3d88"},
+    {file = "aiohttp_socks-0.9.0.tar.gz", hash = "sha256:22159a1af026b229cfe5ea007e065bb3fe56385a951a82623a6f4588a6758003"},
 ]
 
 [[package]]
@@ -485,6 +499,31 @@ groups = ["default"]
 files = [
     {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
     {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
+]
+
+[[package]]
+name = "python-socks"
+version = "2.5.3"
+summary = "Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python"
+groups = ["default"]
+files = [
+    {file = "python_socks-2.5.3-py3-none-any.whl", hash = "sha256:6bc428d0e19f8043e7b8fbc8af33417e690238bd8c9c1e9215871ac18c6136ad"},
+    {file = "python_socks-2.5.3.tar.gz", hash = "sha256:4414b2a24777e439758a5f4644f81509ee634e6893115fe7fd1ec482b4b5c979"},
+]
+
+[[package]]
+name = "python-socks"
+version = "2.5.3"
+extras = ["asyncio"]
+summary = "Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python"
+groups = ["default"]
+dependencies = [
+    "async-timeout>=3.0.1; python_version < \"3.11\"",
+    "python-socks==2.5.3",
+]
+files = [
+    {file = "python_socks-2.5.3-py3-none-any.whl", hash = "sha256:6bc428d0e19f8043e7b8fbc8af33417e690238bd8c9c1e9215871ac18c6136ad"},
+    {file = "python_socks-2.5.3.tar.gz", hash = "sha256:4414b2a24777e439758a5f4644f81509ee634e6893115fe7fd1ec482b4b5c979"},
 ]
 
 [[package]]

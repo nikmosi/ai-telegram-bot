@@ -1,16 +1,16 @@
-import logging
+from collections import defaultdict
 
 import g4f
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from g4f import Provider
-from collections import defaultdict
 
-logging.basicConfig(level=logging.INFO)
+from ai_telegram_bot.config import Settings
 
 main_route = Router()
 conversation_history = defaultdict(list)
+settings = Settings()
 
 
 def trim_history(history, max_length=4096):
@@ -25,7 +25,7 @@ def trim_history(history, max_length=4096):
 async def process_clear_command(message: Message):
     user = message.from_user
     if user is None:
-        logging.info("from_user is None")
+        print("from_user is None")
         return
     user_id = user.id
     conversation_history[user_id] = []
@@ -36,10 +36,11 @@ async def process_clear_command(message: Message):
 async def handle_message(message: Message):
     user = message.from_user
     if user is None:
-        logging.info("from_user is None")
+        print("from_user is None")
         return
     user_id = user.id
     user_input = message.text
+    print(user_id)
 
     conversation_history[user_id].append({"role": "user", "content": user_input})
     conversation_history[user_id] = trim_history(conversation_history[user_id])
@@ -50,8 +51,9 @@ async def handle_message(message: Message):
     try:
         chat_gpt_response = await g4f.ChatCompletion.create_async(
             model="gpt-4",
-            messages=chat_history,
+            messages=[chat_history[-1]],
             provider=using_provider,
+            proxy=settings.proxy,
         )
     except Exception as e:
         print(f"{using_provider.__name__}:", e)
