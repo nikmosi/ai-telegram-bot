@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: ai_telegram_bot
+    environment:
+      - PYTHONUNBUFFERED=1
+    env_file: .env
+    extra_hosts:
+      - "host.docker.internal:192.168.3.1"

@@ -1,26 +1,18 @@
-import logging
-from aiogram import Bot, Dispatcher, types
+from collections import defaultdict
+
 import g4f
-from aiogram.utils import executor
+from aiogram import F, Router
+from aiogram.filters import Command
+from aiogram.types import Message
+from g4f import Provider
+
 from ai_telegram_bot.config import Settings
 
-
+main_route = Router()
+conversation_history = defaultdict(list)
 settings = Settings()
 
-# Включите логирование
-logging.basicConfig(level=logging.INFO)
 
-# Инициализация бота
-bot = Bot(token=settings.token)
-dp = Dispatcher(bot)
-
-# ID администратора (твой Telegram ID)
-ADMIN_ID = 5623396563  # Замени это на свой Telegram ID
-
-# Словарь для хранения истории разговоров
-    conversation_history = {}
-
-# Функция для обрезки истории разговора
 def trim_history(history, max_length=4096):
     current_length = sum(len(message["content"]) for message in history)
     while history and current_length > max_length:
@@ -28,49 +20,46 @@ def trim_history(history, max_length=4096):
         current_length -= len(removed_message["content"])
     return history
 
-@dp.message_handler(commands=['clear'])
-async def process_clear_command(message: types.Message):
-    user_id = message.from_user.id
+
+@main_route.message(Command("clear"))
+async def process_clear_command(message: Message):
+    user = message.from_user
+    if user is None:
+        print("from_user is None")
+        return
+    user_id = user.id
     conversation_history[user_id] = []
-    await message.reply("История диалога очищена.")
+    await message.answer("История диалога очищена.")
 
-# Обработчик для каждого нового сообщения
-@dp.message_handler()
-async def handle_message(message: types.Message):
-    user_id = message.from_user.id
+
+@main_route.message(F.text)
+async def handle_message(message: Message):
+    user = message.from_user
+    if user is None:
+        print("from_user is None")
+        return
+    user_id = user.id
     user_input = message.text
-
-    if user_id not in conversation_history:
-        conversation_history[user_id] = []
+    print(user_id)
 
     conversation_history[user_id].append({"role": "user", "content": user_input})
     conversation_history[user_id] = trim_history(conversation_history[user_id])
-             
+
     chat_history = conversation_history[user_id]
+    using_provider = Provider.Bing
 
     try:
-        response = await g4f.ChatCompletion.create_async(
-            model='gpt-4',
-            messages=chat_history,
-            provider=g4f.Provider.Bing,
+        chat_gpt_response = await g4f.ChatCompletion.create_async(
+            model="gpt-4",
+            messages=[chat_history[-1]],
+            provider=using_provider,
+            proxy=settings.proxy,
         )
-        chat_gpt_response = response
     except Exception as e:
-        print(f"{g4f.Provider.Pizzagpt.__name__}:", e)
+        print(f"{using_provider.__name__}:", e)
         chat_gpt_response = "Извините, произошла ошибка."
 
-    conversation_history[user_id].append({"role": "assistant", "content": chat_gpt_response})
-    print(conversation_history)
-    length = sum(len(message["content"]) for message in conversation_history[user_id])
-    print(length)
-
-    # Отправка ответа пользователю
+    conversation_history[user_id].append(
+        {"role": "assistant", "content": chat_gpt_response}
+    )
     await message.answer(chat_gpt_response)
-
-    # Отправка сообщения админу с запросом пользователя
-    admin_message = f"Пользователь @{message.from_user.username} (ID: {user_id}) отправил сообщение:\n\n{user_input}"
-    await bot.send_message(chat_id=ADMIN_ID,text=admin_message)
-
-# Запуск бота
-if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
