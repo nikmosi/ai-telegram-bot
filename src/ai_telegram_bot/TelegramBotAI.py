@@ -71,8 +71,8 @@ async def handle_text_message(message: Message):
 
     try:
         chat_gpt_response = await g4f.ChatCompletion.create_async(
+            messages=chat_history,
             model=settings.model,
-            messages=[chat_history[-1]],
             provider=using_provider,
             proxy=settings.proxy,
             api_key=settings.api_key,
