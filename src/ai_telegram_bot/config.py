@@ -1,3 +1,6 @@
+from g4f import Provider, ProviderType
+from g4f.Provider import ProviderUtils
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,3 +12,11 @@ class Settings(BaseSettings):
     token: str = "xxx"
     admin_id: int = 5623396563
     proxy: str | None = None
+    provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
+
+    @field_validator('provider', mode="before")
+    @classmethod
+    def validate_provider(cls, value):
+        if isinstance(value, str):
+            return ProviderUtils().convert[value]
+        return value
