@@ -13,6 +13,13 @@ conversation_history = defaultdict(list)
 settings = Settings()
 
 
+def get_user_id(message: Message) -> int:
+    user = message.from_user
+    if user is None:
+        raise Exception("from_user is None")
+    return user.id
+
+
 def trim_history(history, max_length=4096):
     current_length = sum(len(message["content"]) for message in history)
     while history and current_length > max_length:
@@ -23,22 +30,14 @@ def trim_history(history, max_length=4096):
 
 @main_route.message(Command("clear"))
 async def process_clear_command(message: Message):
-    user = message.from_user
-    if user is None:
-        print("from_user is None")
-        return
-    user_id = user.id
+    user_id = get_user_id(message)
     conversation_history[user_id] = []
     await message.answer("История диалога очищена.")
 
 
 @main_route.message(F.text)
 async def handle_message(message: Message):
-    user = message.from_user
-    if user is None:
-        print("from_user is None")
-        return
-    user_id = user.id
+    user_id = get_user_id(message)
     user_input = message.text
     print(user_id)
 
