@@ -75,6 +75,7 @@ async def handle_text_message(message: Message):
             messages=chat_history,
             provider=using_provider,
             proxy=settings.proxy,
+            api_key=settings.api_key,
         )
     except Exception as e:
         chat_gpt_response = "Извините, произошла ошибка."
