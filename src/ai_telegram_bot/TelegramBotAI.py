@@ -5,6 +5,7 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from g4f import Provider
+from loguru import logger
 
 from ai_telegram_bot.config import Settings
 
@@ -40,7 +41,8 @@ async def handle_message(message: Message):
         return
     user_id = user.id
     user_input = message.text
-    print(user_id)
+
+    logger.info(f"get message from user with {user_id=}")
 
     conversation_history[user_id].append({"role": "user", "content": user_input})
     conversation_history[user_id] = trim_history(conversation_history[user_id])
@@ -56,7 +58,7 @@ async def handle_message(message: Message):
             proxy=settings.proxy,
         )
     except Exception as e:
-        print(f"{using_provider.__name__}:", e)
+        logger.error(f"{using_provider.__name__}:", e)
         chat_gpt_response = "Извините, произошла ошибка."
 
     conversation_history[user_id].append(
