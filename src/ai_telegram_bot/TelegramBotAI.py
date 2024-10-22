@@ -54,6 +54,7 @@ async def handle_message(message: Message):
             messages=[chat_history[-1]],
             provider=using_provider,
             proxy=settings.proxy,
+            api_key=settings.api_key,
         )
     except Exception as e:
         print(f"{using_provider.__name__}:", e)
