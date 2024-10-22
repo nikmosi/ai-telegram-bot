@@ -46,7 +46,7 @@ async def handle_message(message: Message):
     conversation_history[user_id] = trim_history(conversation_history[user_id])
 
     chat_history = conversation_history[user_id]
-    using_provider = Provider.Bing
+    using_provider = settings.provider
 
     try:
         chat_gpt_response = await g4f.ChatCompletion.create_async(
