@@ -6,6 +6,8 @@ from aiogram import F, Router, Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
 from g4f import Provider
+
+from loguru import logger
 import speech_recognition as sr
 import ffmpeg
 import os
@@ -93,6 +95,8 @@ async def handle_voice_message(message: Message):
     if not user:
         return
     user_id = user.id
+    user_input = message.text
+    logger.info(f"get message from user with {user_id=}")
 
     voice = message.voice
     file_id = voice.file_id
@@ -127,6 +131,7 @@ async def handle_voice_message(message: Message):
             proxy=settings.proxy,
         )
     except Exception as e:
+        logger.error(f"{using_provider.__name__}:", e)
         chat_gpt_response = "Извините, произошла ошибка."
 
     conversation_history[user_id].append(
