@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     token: str = "xxx"
     admin_id: int = 5623396563
     proxy: str | None = None
+    model: str = "gpt-4o"
     api_key: str | None = None
     provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
       
@@ -21,4 +22,3 @@ class Settings(BaseSettings):
         if isinstance(value, str):
             return ProviderUtils().convert[value]
         return value
-
