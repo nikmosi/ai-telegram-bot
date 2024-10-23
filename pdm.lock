@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:e137135c68ef7b4308f53e4b57b6b56b7832c7e3b28dfb874530bd5d8a813995"
+content_hash = "sha256:4ae9f514465193f01dcf556ee2e592b2bd0a85f243639b90cf4a9497e4aca1d3"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -267,6 +267,15 @@ files = [
     {file = "curl_cffi-0.7.3-cp38-abi3-win32.whl", hash = "sha256:fe01be42c27667353028ee06802cc32e3936496e645a39175db4cf7bea45bb10"},
     {file = "curl_cffi-0.7.3-cp38-abi3-win_amd64.whl", hash = "sha256:39e195a13b95bd7e4a1e8eb7804807b4504c462f6886fde01dfe4b7552fd965e"},
     {file = "curl_cffi-0.7.3.tar.gz", hash = "sha256:901012e21af899bdf1278fd9fcee5aad6931ed56e1f5a620ffa90220c9e79f10"},
+]
+
+[[package]]
+name = "ffmpeg"
+version = "1.4"
+summary = "ffmpeg python package url [https://github.com/jiashaokun/ffmpeg]"
+groups = ["default"]
+files = [
+    {file = "ffmpeg-1.4.tar.gz", hash = "sha256:6931692c890ff21d39938433c2189747815dca0c60ddc7f9bb97f199dba0b5b9"},
 ]
 
 [[package]]
@@ -555,6 +564,21 @@ dependencies = [
 files = [
     {file = "requests-toolbelt-1.0.0.tar.gz", hash = "sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6"},
     {file = "requests_toolbelt-1.0.0-py2.py3-none-any.whl", hash = "sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06"},
+]
+
+[[package]]
+name = "speechrecognition"
+version = "3.11.0"
+requires_python = ">=3.9"
+summary = "Library for performing speech recognition, with support for several engines and APIs, online and offline."
+groups = ["default"]
+dependencies = [
+    "requests>=2.26.0",
+    "typing-extensions",
+]
+files = [
+    {file = "SpeechRecognition-3.11.0-py2.py3-none-any.whl", hash = "sha256:a5be29ae95852969045c3c0d1dc0ed49cf48246d899a39591abbc75ff17ccb86"},
+    {file = "speechrecognition-3.11.0.tar.gz", hash = "sha256:a5ecc0bb61d7d9bf0ca70427cd4fea07c38e26c647b5577137596033677b5f34"},
 ]
 
 [[package]]
