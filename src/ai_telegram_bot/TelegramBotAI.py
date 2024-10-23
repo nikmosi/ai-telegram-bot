@@ -9,9 +9,9 @@ import speech_recognition as sr
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
-from gpt import Gpt, GptArgs
 
 from ai_telegram_bot.config import Settings
+from ai_telegram_bot.gpt import Gpt, GptArgs
 
 main_route = Router()
 settings = Settings()
