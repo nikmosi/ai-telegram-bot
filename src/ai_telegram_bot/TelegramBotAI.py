@@ -1,22 +1,20 @@
-from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import Message
 
 from collections import defaultdict
 import g4f
-from aiogram import F, Router, Bot, Dispatcher
+from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import Message
 from g4f import Provider
 import speech_recognition as sr
 import ffmpeg
-import os
-import logging
 from ai_telegram_bot.config import Settings
 
 main_route = Router()
 conversation_history = defaultdict(list)
 settings = Settings()
 
-def convert_audio(input_path: str, output_format: str = 'wav') -> str:
+
+def convert_audio(input_path: str, output_format: str = "wav") -> str:
     output_path = f"voice_converted.{output_format}"
 
     # Используем ffmpeg для конвертации
@@ -24,20 +22,22 @@ def convert_audio(input_path: str, output_format: str = 'wav') -> str:
 
     return output_path
 
+
 def recognize_audio(file_path: str) -> dict:
     recognizer = sr.Recognizer()
 
     try:
         with sr.AudioFile(file_path) as source:
             audio = recognizer.record(source)
-        text = recognizer.recognize_google(audio, language='ru-RU')
-        return {'text': text, 'error': None}
+        text = recognizer.recognize_google(audio, language="ru-RU")
+        return {"text": text, "error": None}
     except sr.UnknownValueError:
-        return {'text': None, 'error': 'Не удалось распознать голос.'}
+        return {"text": None, "error": "Не удалось распознать голос."}
     except sr.RequestError:
-        return {'text': None, 'error': 'Ошибка сервиса распознавания.'}
+        return {"text": None, "error": "Ошибка сервиса распознавания."}
     except Exception as e:
-        return {'text': None, 'error': str(e)}
+        return {"text": None, "error": str(e)}
+
 
 def get_user_id(message: Message) -> int:
     user = message.from_user
@@ -53,14 +53,15 @@ def trim_history(history, max_length=4096):
         current_length -= len(removed_message["content"])
     return history
 
+
 @main_route.message(Command("clear"))
 async def process_clear_command(message: Message):
     user_id = get_user_id(message)
     conversation_history[user_id] = []
     await message.answer("История диалога очищена.")
 
-@main_route.message(F.text)
 
+@main_route.message(F.text)
 async def handle_message(message: Message):
     user_id = get_user_id(message)
     user_input = message.text
@@ -79,13 +80,14 @@ async def handle_message(message: Message):
             proxy=settings.proxy,
             api_key=settings.api_key,
         )
-    except Exception as e:
+    except Exception:
         chat_gpt_response = "Извините, произошла ошибка."
 
     conversation_history[user_id].append(
         {"role": "assistant", "content": chat_gpt_response}
     )
     await message.answer(chat_gpt_response)
+
 
 @main_route.message(F.voice)
 async def handle_voice_message(message: Message):
@@ -97,19 +99,19 @@ async def handle_voice_message(message: Message):
     voice = message.voice
     file_id = voice.file_id
     file = await message.bot.get_file(file_id)
-    await message.bot.download_file(file.file_path, 'voice.ogg')
+    await message.bot.download_file(file.file_path, "voice.ogg")
 
     # Конвертируем аудио из OGG в WAV
-    converted_file = convert_audio('voice.ogg')
+    converted_file = convert_audio("voice.ogg")
 
     # Распознаем текст из аудио
     result = recognize_audio(converted_file)
 
-    if result.get('error'):
-        await message.answer(result['error'])
+    if result.get("error"):
+        await message.answer(result["error"])
         return
 
-    user_input = result['text']
+    user_input = result["text"]
 
     # Добавляем распознанный текст в историю общения
 
@@ -126,7 +128,7 @@ async def handle_voice_message(message: Message):
             provider=using_provider,
             proxy=settings.proxy,
         )
-    except Exception as e:
+    except Exception:
         chat_gpt_response = "Извините, произошла ошибка."
 
     conversation_history[user_id].append(

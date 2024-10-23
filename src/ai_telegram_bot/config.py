@@ -15,8 +15,8 @@ class Settings(BaseSettings):
     model: str = "gpt-4o"
     api_key: str | None = None
     provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
-      
-    @field_validator('provider', mode="before")
+
+    @field_validator("provider", mode="before")
     @classmethod
     def validate_provider(cls, value):
         if isinstance(value, str):
