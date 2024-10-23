@@ -21,17 +21,12 @@ class Gpt:
 
     async def ask(self, prompt: str) -> str:
         self.conversation_history.append({"role": "user", "content": prompt})
-        chat_gpt_response = g4f.ChatCompletion.create_async(
+        chat_gpt_response = await g4f.ChatCompletion.create_async(
             messages=self.conversation_history,
             model=self.gptArgs.model,
             provider=self.gptArgs.provider,
             proxy=self.gptArgs.proxy,
             api_key=self.gptArgs.api_key,
         )
-        if not isinstance(chat_gpt_response, str):
-            buffer = []
-            async for part in chat_gpt_response:
-                buffer.append(part)
-            chat_gpt_response = "".join(buffer)
         self.conversation_history.append({"role": "user", "content": chat_gpt_response})
         return chat_gpt_response
