@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:d36cf79030251eaaf2cb901d5601cf3d867550998258a6bac4a78846be7f5f6c"
+content_hash = "sha256:fe438bdb97958522a5dc5b8c772992547578490ef229d2b3437b1f3f8bcd771a"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -282,6 +282,15 @@ files = [
 ]
 
 [[package]]
+name = "ffmpeg"
+version = "1.4"
+summary = "ffmpeg python package url [https://github.com/jiashaokun/ffmpeg]"
+groups = ["default"]
+files = [
+    {file = "ffmpeg-1.4.tar.gz", hash = "sha256:6931692c890ff21d39938433c2189747815dca0c60ddc7f9bb97f199dba0b5b9"},
+]
+
+[[package]]
 name = "frozenlist"
 version = "1.4.1"
 requires_python = ">=3.8"
@@ -309,7 +318,7 @@ files = [
 
 [[package]]
 name = "g4f"
-version = "0.3.3.1"
+version = "0.3.3.2"
 summary = "The official gpt4free repository | various collection of powerful language models"
 groups = ["default"]
 dependencies = [
@@ -321,8 +330,8 @@ dependencies = [
     "requests",
 ]
 files = [
-    {file = "g4f-0.3.3.1-py3-none-any.whl", hash = "sha256:1ab19c34fdafb3dc9b5f938631f9c18d1cd37b758845b8fed85867cfe7b4dac8"},
-    {file = "g4f-0.3.3.1.tar.gz", hash = "sha256:71e8d6c1e1baf94abc1155de3df5cda1750eb129a0d722911b134d267c830d20"},
+    {file = "g4f-0.3.3.2-py3-none-any.whl", hash = "sha256:d9a836a0422c2f33952bc07c9c1937279eaedc425d6c1aaf6e4da4382f5e261a"},
+    {file = "g4f-0.3.3.2.tar.gz", hash = "sha256:90f0e450afa8a3393167280fbbfdbe6d444dfcb21404dfda9def892b1ffdca88"},
 ]
 
 [[package]]
@@ -583,6 +592,21 @@ dependencies = [
 files = [
     {file = "requests-toolbelt-1.0.0.tar.gz", hash = "sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6"},
     {file = "requests_toolbelt-1.0.0-py2.py3-none-any.whl", hash = "sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06"},
+]
+
+[[package]]
+name = "speechrecognition"
+version = "3.11.0"
+requires_python = ">=3.9"
+summary = "Library for performing speech recognition, with support for several engines and APIs, online and offline."
+groups = ["default"]
+dependencies = [
+    "requests>=2.26.0",
+    "typing-extensions",
+]
+files = [
+    {file = "SpeechRecognition-3.11.0-py2.py3-none-any.whl", hash = "sha256:a5be29ae95852969045c3c0d1dc0ed49cf48246d899a39591abbc75ff17ccb86"},
+    {file = "speechrecognition-3.11.0.tar.gz", hash = "sha256:a5ecc0bb61d7d9bf0ca70427cd4fea07c38e26c647b5577137596033677b5f34"},
 ]
 
 [[package]]
