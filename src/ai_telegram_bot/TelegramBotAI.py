@@ -102,8 +102,9 @@ async def handle_message(message: Message):
     user_text = get_user_text(message)
     gpt = gpts[user_id]
 
+    response = await gpt.ask(user_text)
     try:
-        response = await gpt.ask(user_text)
+        pass
     except Exception:
         response = "Извините, произошла ошибка."
     await message.answer(response)
