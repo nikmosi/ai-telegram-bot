@@ -9,7 +9,6 @@ import speech_recognition as sr
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
-from loguru import logger
 
 from ai_telegram_bot.config import Settings
 from ai_telegram_bot.gpt import Gpt, GptArgs
@@ -34,8 +33,7 @@ def convert_audio_format(
 ) -> Generator[str, Any]:
     with NamedTemporaryFile(suffix=output_format) as tmp_file:
         output_path = tmp_file.name
-        logger.debug(output_path)
-        ffmpeg.input(input_path).output(output_path).run(overwrite_output=False)
+        ffmpeg.input(input_path).output(output_path).run(overwrite_output=True)
         yield output_path
 
 
