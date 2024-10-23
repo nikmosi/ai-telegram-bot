@@ -18,11 +18,15 @@ COPY src/ /project/src
 # run stage
 FROM python:$PYTHON_BASE
 
+RUN apt-get update && apt-get install -y ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # retrieve packages from build stage
 COPY --from=builder /project/.venv/ /project/.venv
 ENV PATH="/project/.venv/bin:$PATH"
-# set command/entrypoint, adapt to fit your needs
 COPY src /project/src
+
 
 WORKDIR /project
 CMD ["python", "src/main.py"]

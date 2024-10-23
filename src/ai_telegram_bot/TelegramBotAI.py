@@ -29,11 +29,11 @@ gpts = defaultdict(
 
 @contextmanager
 def convert_audio_format(
-    input_path: str, output_format: str = "wav"
+    input_path: str, output_format: str = ".wav"
 ) -> Generator[str, Any]:
     with NamedTemporaryFile(suffix=output_format) as tmp_file:
         output_path = tmp_file.name
-        ffmpeg.input(input_path).output(output_path).run(overwrite_output=False)
+        ffmpeg.input(input_path).output(output_path).run(overwrite_output=True)
         yield output_path
 
 
