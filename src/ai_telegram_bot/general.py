@@ -7,18 +7,20 @@ import ffmpeg
 import speech_recognition as sr
 from aiogram.types import Message
 
+from ai_telegram_bot.exceptions import CantGetFieldException, RecognizeException
+
 
 def get_file_id(message: Message):
     voice = message.voice
     if voice is None:
-        raise Exception("voice is None")
+        raise CantGetFieldException(field_name=f"{message.voice=}")
     return voice.file_id
 
 
 def get_bot(message: Message):
     bot = message.bot
     if bot is None:
-        raise Exception("bot is None")
+        raise CantGetFieldException(field_name=f"{message.bot=}")
     return bot
 
 
@@ -54,7 +56,7 @@ async def download_voice(message: Message) -> AsyncGenerator[str, Any]:
     bot = get_bot(message)
     file = await bot.get_file(file_id)
     if file.file_path is None:
-        raise Exception("file_path is None")
+        raise CantGetFieldException(field_name=f"{file.file_path=}")
     with NamedTemporaryFile(suffix=".ogg") as tmp_file:
         temp_path = tmp_file.name
         await bot.download_file(file.file_path, temp_path)
@@ -66,6 +68,6 @@ async def convert_voice_to_text(message: Message) -> str:
         with convert_audio_format(voice) as converted_file:
             result = recognize_audio(converted_file)
 
-            if result.get("error"):
-                raise Exception(result.get("error"))
+            if err_text := result.get("error"):
+                raise RecognizeException(result=err_text)
             return result["text"]
