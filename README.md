@@ -10,6 +10,11 @@ This project is a Telegram bot that utilizes GPT model to interact with users vi
 - **Proxy Support**: Optionally connect through a proxy for API requests.
 - **Configurable Settings**: Customize settings through environment variables.
 
+## Requirements
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
 ## Project Structure
 
 - **`src/main.py`**: The entry point of the bot.
