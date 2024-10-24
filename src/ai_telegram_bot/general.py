@@ -1,7 +1,7 @@
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager, contextmanager
 from tempfile import NamedTemporaryFile
-from typing import Any, Generator
+from typing import Any
 
 import ffmpeg
 import speech_recognition as sr
