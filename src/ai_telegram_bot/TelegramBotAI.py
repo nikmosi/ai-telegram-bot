@@ -1,10 +1,12 @@
 from collections import defaultdict
+from random import sample
 
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
 from ai_telegram_bot.config import Settings
+from ai_telegram_bot.constants import tarot_deck
 from ai_telegram_bot.general import convert_voice_to_text
 from ai_telegram_bot.gpt import Gpt, GptArgs
 from ai_telegram_bot.models import UserInfo
@@ -21,6 +23,14 @@ gpts = defaultdict(
         )
     )
 )
+
+
+@main_route.message(Command("taro"))
+async def play_taro(message: Message):
+    past, present, future = sample(tarot_deck, 3)
+    await message.reply(
+        "\n".join([f"Прошлое: {past}", f"Настоящее: {present}", f"Будущее: {future}"])
+    )
 
 
 @main_route.message(Command("clear"))
