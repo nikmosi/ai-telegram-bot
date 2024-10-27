@@ -5,11 +5,10 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from ai_telegram_bot.config import Settings
-from ai_telegram_bot.constants import tarot_deck
-from ai_telegram_bot.general import convert_voice_to_text
-from ai_telegram_bot.gpt import Gpt, GptArgs
-from ai_telegram_bot.models import UserInfo
+from ai_telegram_bot.data import Settings, tarot_deck
+from ai_telegram_bot.gpt import Gpt
+from ai_telegram_bot.models import GptArgs, UserInfo
+from ai_telegram_bot.utils import convert_voice_to_text
 
 main_route = Router()
 settings = Settings()

@@ -3,7 +3,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from loguru import logger
 
-from ai_telegram_bot.config import Settings
+from ai_telegram_bot.data.config import Settings
 from ai_telegram_bot.TelegramBotAI import main_route
 
 dp = Dispatcher()
