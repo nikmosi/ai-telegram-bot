@@ -17,6 +17,6 @@ jobs:
       - name: Install PDM
         run: python -m pip install --upgrade pip && pip install pdm
       - name: Install dependencies
-        run: pdm install --dev
+        run: pdm install -G dev
       - name: Run tests
         run: pdm run pytest
