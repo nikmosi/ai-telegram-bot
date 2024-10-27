@@ -20,5 +20,10 @@ readme = "README.md"
 license = {text = "MIT"}
 
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "pytest-timeout>=2.3.1",
+]
 [tool.pdm]
 distribution = false
