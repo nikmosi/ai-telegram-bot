@@ -21,3 +21,14 @@ class Gpt:
         )
         self.conversation_history.append({"role": "user", "content": chat_gpt_response})
         return chat_gpt_response
+
+    def clear_history(self):
+        self.conversation_history = []
+
+
+async def answer_on_text(text: str, gpt: Gpt) -> str:
+    try:
+        response = await gpt.ask(text)
+    except Exception:
+        response = "Извините, произошла ошибка."
+    return response

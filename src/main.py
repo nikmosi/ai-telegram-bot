@@ -1,25 +1,54 @@
 import asyncio
 
 from aiogram import Bot, Dispatcher
-from loguru import logger
+from aiogram.client.default import DefaultBotProperties
 
 from ai_telegram_bot.data.config import Settings
-from ai_telegram_bot.TelegramBotAI import main_route
+from ai_telegram_bot.handlers.user import prepare_router as prepare_user_router
+from ai_telegram_bot.utils import gpt_provider
+from ai_telegram_bot.utils.logging import setup_logger
 
-dp = Dispatcher()
 settings = Settings()
 
 
-@logger.catch
+def setup_logging(dispatcher: Dispatcher) -> None:
+    dispatcher["aiogram_logger"] = setup_logger()
+
+
+def setup_gpt_provider(dispatcher: Dispatcher) -> None:
+    dispatcher["gpt_provider"] = gpt_provider.setup_gpt_provider()
+
+
+async def setup_handlers(dispatcher: Dispatcher) -> None:
+    dispatcher.include_router(prepare_user_router())
+
+
+async def setup_aiogram(dispatcher: Dispatcher) -> None:
+    setup_logging(dispatcher)
+    setup_gpt_provider(dispatcher)
+    logger = dispatcher["aiogram_logger"]
+
+    logger.debug("Configuring aiogram")
+    await setup_handlers(dispatcher)
+    logger.info("Configured aiogram")
+
+
+async def aiogram_on_startup_polling(dispatcher: Dispatcher, bot: Bot) -> None:
+    await setup_aiogram(dispatcher)
+    dispatcher["aiogram_logger"].info("Started polling")
+
+
+async def aiogram_on_shutdown_polling(dispatcher: Dispatcher, bot: Bot) -> None:
+    dispatcher["aiogram_logger"].debug("Stopping polling")
+    dispatcher["aiogram_logger"].info("Stopped polling")
+
+
 async def main():
-    logger.info("start main")
-    logger.info(f"proxy: {settings.proxy}")
-    bot = Bot(token=settings.token)
-    dp.startup.register(lambda: logger.info("bot startup"))
-    dp.shutdown.register(lambda: logger.info("bot shutdown"))
-    dp.include_router(main_route)
+    dp = Dispatcher()
+    bot = Bot(token=settings.token, default=DefaultBotProperties(parse_mode="HTML"))
+    dp.startup.register(aiogram_on_startup_polling)
+    dp.shutdown.register(aiogram_on_shutdown_polling)
     await dp.start_polling(bot)
-    logger.info("end main")
 
 
 if __name__ == "__main__":
