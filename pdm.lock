@@ -333,7 +333,7 @@ files = [
 
 [[package]]
 name = "g4f"
-version = "0.3.3.2"
+version = "0.3.3.3"
 summary = "The official gpt4free repository | various collection of powerful language models"
 groups = ["default"]
 dependencies = [
@@ -345,8 +345,8 @@ dependencies = [
     "requests",
 ]
 files = [
-    {file = "g4f-0.3.3.2-py3-none-any.whl", hash = "sha256:d9a836a0422c2f33952bc07c9c1937279eaedc425d6c1aaf6e4da4382f5e261a"},
-    {file = "g4f-0.3.3.2.tar.gz", hash = "sha256:90f0e450afa8a3393167280fbbfdbe6d444dfcb21404dfda9def892b1ffdca88"},
+    {file = "g4f-0.3.3.3-py3-none-any.whl", hash = "sha256:4d1736b9b2aa74f4f76d2bef4befe2cd2b5ab3b61054e246a1d39ffd3b5b73fc"},
+    {file = "g4f-0.3.3.3.tar.gz", hash = "sha256:05dfd1a54fd5838873024d582b44b7859839caf295dba2726043b62fce73d941"},
 ]
 
 [[package]]
@@ -551,7 +551,7 @@ files = [
 
 [[package]]
 name = "pydantic-settings"
-version = "2.6.0"
+version = "2.6.1"
 requires_python = ">=3.8"
 summary = "Settings management using Pydantic"
 groups = ["default"]
@@ -560,8 +560,8 @@ dependencies = [
     "python-dotenv>=0.21.0",
 ]
 files = [
-    {file = "pydantic_settings-2.6.0-py3-none-any.whl", hash = "sha256:4a819166f119b74d7f8c765196b165f95cc7487ce58ea27dec8a5a26be0970e0"},
-    {file = "pydantic_settings-2.6.0.tar.gz", hash = "sha256:44a1804abffac9e6a30372bb45f6cafab945ef5af25e66b1c634c01dd39e0188"},
+    {file = "pydantic_settings-2.6.1-py3-none-any.whl", hash = "sha256:7fb0637c786a558d3103436278a7c4f1cfd29ba8973238a50c5bb9a55387da87"},
+    {file = "pydantic_settings-2.6.1.tar.gz", hash = "sha256:e0f92546d8a9923cb8941689abf85d6601a8c19a23e97a34b2964a2e3f813ca0"},
 ]
 
 [[package]]
