@@ -5,16 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
+  - package-ecosystem: pip
     directory: "/"
     schedule:
       interval: daily
       time: "13:00"
-    groups:
-      python-packages:
-        patterns:
-          - "*"
   - package-ecosystem: "docker"
-    directory: "/"  # Root directory where Dockerfile and compose.yaml are located
+    directory: "/"
     schedule:
-      interval: "daily"  # Check for updates once a week
+      interval: "daily"
