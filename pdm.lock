@@ -23,8 +23,8 @@ files = [
 
 [[package]]
 name = "aiogram"
-version = "3.13.1"
-requires_python = ">=3.8"
+version = "3.14.0"
+requires_python = ">=3.9"
 summary = "Modern and fully asynchronous framework for Telegram Bot API"
 groups = ["default"]
 dependencies = [
@@ -32,13 +32,12 @@ dependencies = [
     "aiohttp<3.11,>=3.9.0",
     "certifi>=2023.7.22",
     "magic-filter<1.1,>=1.0.12",
-    "pydantic<2.10,>=2.4.1; python_version >= \"3.9\"",
-    "pydantic<2.9,>=2.4.1; python_version < \"3.9\"",
+    "pydantic<2.10,>=2.4.1",
     "typing-extensions<=5.0,>=4.7.0",
 ]
 files = [
-    {file = "aiogram-3.13.1-py3-none-any.whl", hash = "sha256:148cbba15c2b6e0bc482aff6ae86848ed43e023b7102336bad17698242693000"},
-    {file = "aiogram-3.13.1.tar.gz", hash = "sha256:2674640ae74501ae30e68a5354e03f12e10db3adbcbd475bb56904536288c9c9"},
+    {file = "aiogram-3.14.0-py3-none-any.whl", hash = "sha256:ac86088673b04a30bb005a0075610d0048fcf4e9d1b33e42ab13502410cb1cf6"},
+    {file = "aiogram-3.14.0.tar.gz", hash = "sha256:68529d7cb8b5cfa862b42c687cb5219eab9e8d589b4729e4806ece50a192d88f"},
 ]
 
 [[package]]
