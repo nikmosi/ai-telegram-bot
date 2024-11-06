@@ -1,17 +1,25 @@
+from typing import TypedDict
+
 import g4f
 
+from ai_telegram_bot.exceptions.exceptions import GptConversationException
 from ai_telegram_bot.models import GptArgs
 
 
+class Message(TypedDict):
+    role: str
+    content: str
+
+
 class Gpt:
-    conversation_history: list
+    conversation_history: list[Message]
 
     def __init__(self, gptArgs: GptArgs) -> None:
         self.gptArgs = gptArgs
         self.conversation_history = []
 
     async def ask(self, prompt: str) -> str:
-        self.conversation_history.append({"role": "user", "content": prompt})
+        self.conversation_history.append(Message(role="user", content=prompt))
         chat_gpt_response = await g4f.ChatCompletion.create_async(
             messages=self.conversation_history,
             model=self.gptArgs.model,
@@ -19,10 +27,14 @@ class Gpt:
             proxy=self.gptArgs.proxy,
             api_key=self.gptArgs.api_key,
         )
-        self.conversation_history.append({"role": "user", "content": chat_gpt_response})
+        self.conversation_history.append(
+            Message(role="assistant", content=chat_gpt_response)
+        )
+        if not isinstance(chat_gpt_response, str):
+            raise GptConversationException()
         return chat_gpt_response
 
-    def clear_history(self):
+    def clear_history(self) -> None:
         self.conversation_history = []
 
 

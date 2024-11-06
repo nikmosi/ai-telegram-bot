@@ -50,7 +50,7 @@ async def aiogram_on_shutdown_polling(dispatcher: Dispatcher, bot: Bot) -> None:
     dispatcher["aiogram_logger"].info("Stopped polling")
 
 
-async def main():
+async def main() -> None:
     dp = Dispatcher()
     bot = Bot(token=settings.token, default=DefaultBotProperties(parse_mode="HTML"))
     logger.add(

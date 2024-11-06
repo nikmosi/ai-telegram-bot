@@ -6,7 +6,7 @@ from ai_telegram_bot.services.gpt import Gpt
 
 
 class GptProvider:
-    gpts = defaultdict(
+    gpts: defaultdict[int, Gpt] = defaultdict(
         lambda: Gpt(
             GptArgs(
                 model=settings.model,

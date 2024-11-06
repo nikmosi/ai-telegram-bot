@@ -4,7 +4,7 @@ from ai_telegram_bot.services.gpt import answer_on_text
 from ai_telegram_bot.utils.gpt_provider import GptProvider
 
 
-async def handle_message(message: Message, gpt_provider: GptProvider):
+async def handle_message(message: Message, gpt_provider: GptProvider) -> None:
     if message.from_user is None:
         return
     if message.text is None:

@@ -1,4 +1,4 @@
-from typing import Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, override
 
 from aiogram import BaseMiddleware
 from aiogram.types import (
@@ -7,6 +7,7 @@ from aiogram.types import (
     InlineQuery,
     Message,
     PreCheckoutQuery,
+    TelegramObject,
     Update,
 )
 from loguru import logger
@@ -101,13 +102,16 @@ class LoggingMiddleware(BaseMiddleware):
 
         return print_attrs
 
+    @override
     async def __call__(
         self,
-        handler: Callable[[Update, dict[str, Any]], Awaitable[Any]],
-        event: Update,
+        handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
         data: dict[str, Any],
     ) -> Any:
-        print_attrs: dict = {}
+        if not isinstance(event, Update):
+            return
+        print_attrs: dict[str, Any] = {}
 
         if event.message:
             message: Message = event.message
@@ -166,9 +170,9 @@ class LoggingMiddleware(BaseMiddleware):
             )
             self.logger.info(*logger_msg)
         elif event.my_chat_member:
-            upd: ChatMemberUpdated = event.my_chat_member
+            my_chat_member_update: ChatMemberUpdated = event.my_chat_member
 
-            print_attrs = self.process_my_chat_member(upd)
+            print_attrs = self.process_my_chat_member(my_chat_member_update)
 
             logger_msg = (
                 "received my chat member update | "
@@ -180,9 +184,9 @@ class LoggingMiddleware(BaseMiddleware):
             )
             self.logger.info(*logger_msg)
         elif event.chat_member:
-            upd: ChatMemberUpdated = event.chat_member
+            chat_member_update: ChatMemberUpdated = event.chat_member
 
-            print_attrs = self.process_chat_member(upd)
+            print_attrs = self.process_chat_member(chat_member_update)
 
             logger_msg = (
                 "received chat member update | "
