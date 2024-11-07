@@ -1,7 +1,7 @@
 from aiogram.types import Message
 
 from ai_telegram_bot.handlers.user.taro import play
-from ai_telegram_bot.services.gpt import answer_on_text
+from ai_telegram_bot.services.gpt import Gpt, answer_on_text
 from ai_telegram_bot.utils.gpt_provider import GptProvider
 
 
@@ -22,10 +22,10 @@ async def handle_message(message: Message, gpt_provider: GptProvider) -> None:
         await message.reply(response)
 
 
-async def determine_taro_request(text: str, gpt) -> bool:
+async def determine_taro_request(text: str, gpt: Gpt) -> bool:
     prompt = (
         f"Определи, является ли запрос '{text}' запросом к таро. Ответь 'Да' или 'Нет'."
     )
-    response = await gpt.ask(prompt)
+    response = await answer_on_text(prompt, gpt)
 
     return "Да" in response.strip()
