@@ -42,3 +42,7 @@ python_version = "3.12"
 strict = true
 namespace_packages = true
 exclude = "tests/.*"
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
