@@ -17,7 +17,7 @@ def convert_audio_format(
         yield output_path
 
 
-def recognize_audio(file_path: str) -> dict:
+def recognize_audio(file_path: str) -> dict[str | None, str | None]:
     recognizer = sr.Recognizer()
 
     try:

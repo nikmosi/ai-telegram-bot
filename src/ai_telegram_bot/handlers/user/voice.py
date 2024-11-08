@@ -5,7 +5,7 @@ from ai_telegram_bot.utils import convert_voice_to_text
 from ai_telegram_bot.utils.gpt_provider import GptProvider
 
 
-async def handle_voice_message(message: Message, gpt_provider: GptProvider):
+async def handle_voice_message(message: Message, gpt_provider: GptProvider) -> None:
     if message.from_user is None:
         return
     recognition_text = await convert_voice_to_text(message)

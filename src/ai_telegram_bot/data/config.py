@@ -1,3 +1,5 @@
+from typing import Any
+
 from g4f import Provider, ProviderType
 from g4f.Provider import ProviderUtils
 from pydantic import Field, field_validator
@@ -20,7 +22,7 @@ class Settings(BaseSettings):
 
     @field_validator("provider", mode="before")
     @classmethod
-    def validate_provider(cls, value):
+    def validate_provider(cls, value: Any) -> ProviderType:
         if isinstance(value, str):
             return ProviderUtils().convert[value]
         return value

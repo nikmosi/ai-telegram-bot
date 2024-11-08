@@ -30,4 +30,5 @@ async def convert_voice_to_text(message: Message) -> str:
 
             if err_text := result.get("error"):
                 raise RecognizeException(result=err_text)
-            return result["text"]
+            text = result["text"]
+            return text if text else ""
