@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:5ac83666a052ba0c682a7f741d2f54c1cbe41bee21024680732c2e507fd1171b"
+content_hash = "sha256:63425d431edb5a36840f837cf7b3cf1896ea1bb5029519d49a045c0a3f5a7021"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -384,6 +384,20 @@ dependencies = [
 files = [
     {file = "loguru-0.7.2-py3-none-any.whl", hash = "sha256:003d71e3d3ed35f0f8984898359d65b79e5b21943f78af86aa5491210429b8eb"},
     {file = "loguru-0.7.2.tar.gz", hash = "sha256:e671a53522515f34fd406340ee968cb9ecafbc4b36c679da03c18fd8d0bd51ac"},
+]
+
+[[package]]
+name = "loguru-mypy"
+version = "0.0.4"
+requires_python = ">=3.6.0"
+summary = "UNKNOWN"
+groups = ["dev"]
+dependencies = [
+    "typing-extensions",
+]
+files = [
+    {file = "loguru-mypy-0.0.4.tar.gz", hash = "sha256:1f1767d7737f1825295ce147f7e751f91837f5759b3c2f41801adc65691aeed4"},
+    {file = "loguru_mypy-0.0.4-py3-none-any.whl", hash = "sha256:98e044be509887a314e683a1e851813310b396be48388c1fe4de97a2eac99d4d"},
 ]
 
 [[package]]

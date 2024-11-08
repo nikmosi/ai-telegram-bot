@@ -25,6 +25,7 @@ dev = [
     "pytest>=8.3.3",
     "pytest-timeout>=2.3.1",
     "mypy>=1.13.0",
+    "loguru-mypy>=0.0.4",
 ]
 [tool.pdm]
 distribution = false
