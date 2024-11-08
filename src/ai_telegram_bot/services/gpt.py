@@ -1,6 +1,7 @@
 from typing import TypedDict, override
 
 import g4f
+from loguru import logger
 from ai_telegram_bot.exceptions.exceptions import GptConversationException
 from ai_telegram_bot.models import GptArgs
 
@@ -46,6 +47,7 @@ class TaroGpt(Gpt):
 
 
 async def answer_on_text(text: str, gpt: Gpt) -> str:
+    logger.debug(f"{text=}")
     try:
         response = await gpt.ask(text)
     except Exception:
@@ -54,6 +56,7 @@ async def answer_on_text(text: str, gpt: Gpt) -> str:
 
 
 async def determine_taro_request(text: str, gpt: Gpt) -> bool:
+    logger.debug("taro request")
     response = await answer_on_text(text, gpt)
 
     return "Да" in response.strip()
