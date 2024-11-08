@@ -51,3 +51,9 @@ async def answer_on_text(text: str, gpt: Gpt) -> str:
     except Exception:
         response = "Извините, произошла ошибка."
     return response
+
+
+async def determine_taro_request(text: str, gpt: Gpt) -> bool:
+    response = await answer_on_text(text, gpt)
+
+    return "Да" in response.strip()
