@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4 
       - uses: pdm-project/setup-pdm@v4
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            .venv
       - name: Install dependencies
         run: pdm install -G dev
       - name: Run tests
