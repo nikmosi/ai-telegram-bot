@@ -34,6 +34,7 @@ distribution = false
 test = "pytest"
 lint = "pre-commit run --all-files"
 mypy = "mypy --strict ."
+up = "docker compose up --force-recreate --build"
 
 [tool.mypy]
 explicit_package_bases = true
