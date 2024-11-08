@@ -1,7 +1,6 @@
-from typing import TypedDict
+from typing import TypedDict, override
 
 import g4f
-
 from ai_telegram_bot.exceptions.exceptions import GptConversationException
 from ai_telegram_bot.models import GptArgs
 
@@ -36,6 +35,14 @@ class Gpt:
 
     def clear_history(self) -> None:
         self.conversation_history = []
+
+
+class TaroGpt(Gpt):
+    @override
+    async def ask(self, prompt: str) -> str:
+        self.clear_history()
+        prompt = f"Определи, является ли запрос '{prompt}' запросом к таро. Ответь 'Да' или 'Нет'."
+        return await super().ask(prompt)
 
 
 async def answer_on_text(text: str, gpt: Gpt) -> str:
