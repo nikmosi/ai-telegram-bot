@@ -48,3 +48,8 @@ exclude = "tests/.*"
 pythonpath = [
   "src"
 ]
+
+[tool.ruff]
+src = ["src", "test"]
+line-length = 88
+fix = true
