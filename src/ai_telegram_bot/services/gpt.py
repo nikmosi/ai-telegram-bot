@@ -2,6 +2,7 @@ from typing import TypedDict, override
 
 import g4f
 from loguru import logger
+
 from ai_telegram_bot.exceptions.exceptions import GptConversationException
 from ai_telegram_bot.models import GptArgs
 
