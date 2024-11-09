@@ -1,5 +1,9 @@
 name: lint and test
-on: [ push, pull_request ]
+on:
+  pull_request:
+  push:
+    paths: [ "src/**", "test/**" ]
+
 jobs:
   ruff:
     runs-on: ubuntu-latest
