@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: pdm install -G dev
       - name: Run tests
-        run: pdm run pytest
+        run: pdm test
   mypy:
     runs-on: ubuntu-latest
     steps:
