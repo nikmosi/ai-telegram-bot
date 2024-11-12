@@ -30,6 +30,7 @@ dev = [
     "mypy>=1.13.0",
     "loguru-mypy>=0.0.4",
     "pre-commit>=4.0.1",
+    "ruff>=0.7.3",
 ]
 [tool.pdm]
 distribution = false
