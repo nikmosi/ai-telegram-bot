@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-from sqlalchemy import create_async_engine, async_sessionmaker
+
+from sqlalchemy import async_sessionmaker, create_async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ai_telegram_bot.data.config import settings

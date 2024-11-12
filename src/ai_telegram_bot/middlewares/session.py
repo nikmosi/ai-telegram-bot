@@ -1,6 +1,7 @@
+from typing import Any, Awaitable, Callable, override
+
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
-from typing import Any, Awaitable, override, Callable
 
 from ai_telegram_bot.models import db_helper
 
