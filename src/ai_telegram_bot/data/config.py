@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     api_key: str | None = None
     provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
 
-    db: DatabaseConfig
+    db: DatabaseConfig = Field(default="default")
 
     @field_validator("provider", mode="before")
     @classmethod
