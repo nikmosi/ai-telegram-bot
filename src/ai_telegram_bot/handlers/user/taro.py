@@ -2,7 +2,7 @@ from random import sample
 
 from aiogram.types import Message
 
-from ai_telegram_bot.data import tarot_deck
+from ai_telegram_bot.data.constants import tarot_deck
 
 
 async def play(message: Message) -> None:
