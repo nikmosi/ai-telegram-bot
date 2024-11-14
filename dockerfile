@@ -27,7 +27,7 @@ COPY --from=builder /project/.venv/ /project/.venv
 ENV PATH="/project/.venv/bin:$PATH"
 ENV PATH "/project/scripts:${PATH}"
 COPY src /project/src
-COPY scripts /procject/scripts
+COPY scripts /project/scripts
 
 
 WORKDIR /project
