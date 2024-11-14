@@ -1,6 +1,7 @@
 services:
   pg:
     image: postgres
+    container_name: ai_pg
     environment:
       POSTGRES_DB: bot
       POSTGRES_USER: user
@@ -16,6 +17,7 @@ services:
       - app-network
   pgadmin:
     image: dpage/pgadmin4
+    container_name: ai_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.org
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -26,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile
-    container_name: ai_telegram_bot
+    container_name: ai_bot
     environment:
       - PYTHONUNBUFFERED=1
     env_file: .env
