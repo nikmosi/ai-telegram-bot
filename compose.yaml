@@ -2,6 +2,7 @@ services:
   pg:
     image: postgres
     container_name: ai_pg
+    hostname: pg.dev
     environment:
       POSTGRES_DB: bot
       POSTGRES_USER: user
