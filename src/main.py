@@ -5,8 +5,13 @@ from aiogram.client.default import DefaultBotProperties
 
 from ai_telegram_bot.data.config import Settings
 from ai_telegram_bot.handlers.user import prepare_router as prepare_user_router
-from ai_telegram_bot.middlewares.logging import LoggingMiddleware
+from ai_telegram_bot.middlewares import (
+    L10nMiddleware,
+    LoggingMiddleware,
+    SessionMiddleware,
+)
 from ai_telegram_bot.utils import gpt_provider
+from ai_telegram_bot.utils.fluent import get_fluent_localization
 from ai_telegram_bot.utils.logging import setup_logger
 
 settings = Settings()
@@ -26,6 +31,8 @@ async def setup_handlers(dispatcher: Dispatcher) -> None:
 
 def setup_middlewares(dispatcher: Dispatcher) -> None:
     dispatcher.update.outer_middleware(LoggingMiddleware())
+    dispatcher.update.outer_middleware(L10nMiddleware(get_fluent_localization()))
+    dispatcher.update.outer_middleware(SessionMiddleware())
 
 
 async def setup_aiogram(dispatcher: Dispatcher) -> None:
