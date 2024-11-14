@@ -4,7 +4,7 @@ from typing import Any, override
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
-from ai_telegram_bot.models import db_helper
+from ai_telegram_bot.models.db_helper import db_helper
 
 
 class SessionMiddleware(BaseMiddleware):

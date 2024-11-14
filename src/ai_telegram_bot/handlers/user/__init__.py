@@ -7,6 +7,7 @@ from ai_telegram_bot.filters import ChatTypeFilter, TextFilter
 from . import clear, donate, start, taro, text, voice
 
 
+# TODO: extract donate to folder
 def prepare_router() -> Router:
     user_router = Router(name="user_router")
     user_router.message.filter(ChatTypeFilter("private"))
