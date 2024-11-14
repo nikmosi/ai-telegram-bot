@@ -8,9 +8,6 @@ from ai_telegram_bot.models import db_helper
 
 
 class SessionMiddleware(BaseMiddleware):
-    def __init__(self) -> None:
-        self.counter = 0
-
     @override
     async def __call__(
         self,
