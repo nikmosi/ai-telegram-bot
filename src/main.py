@@ -2,6 +2,8 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
+from aiogram.fsm.storage.redis import RedisStorage
+from redis.asyncio import ConnectionPool, Redis
 
 from ai_telegram_bot.data.config import Settings
 from ai_telegram_bot.handlers.user import prepare_router as prepare_user_router
@@ -19,6 +21,18 @@ settings = Settings()
 
 def setup_logging(dispatcher: Dispatcher) -> None:
     dispatcher["aiogram_logger"] = setup_logger()
+
+
+def setup_redis() -> RedisStorage:
+    rc = settings.redis
+
+    redis = Redis(
+        connection_pool=ConnectionPool.from_url(
+            f"redis://{rc.username}:{rc.password}@{rc.host}:{rc.port}/{rc.db}"
+        )
+    )
+
+    return RedisStorage(redis)
 
 
 def setup_gpt_provider(dispatcher: Dispatcher) -> None:
@@ -57,7 +71,8 @@ async def aiogram_on_shutdown_polling(dispatcher: Dispatcher, bot: Bot) -> None:
 
 
 async def main() -> None:
-    dp = Dispatcher()
+    redis = setup_redis()
+    dp = Dispatcher(storage=redis)
     bot = Bot(token=settings.token, default=DefaultBotProperties(parse_mode="HTML"))
     dp.startup.register(aiogram_on_startup_polling)
     dp.shutdown.register(aiogram_on_shutdown_polling)
