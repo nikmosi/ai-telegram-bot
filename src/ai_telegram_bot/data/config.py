@@ -22,6 +22,14 @@ class DatabaseConfig(BaseModel):
     }
 
 
+class RedisConfig(BaseModel):
+    username: str = "default"
+    host: str = "redis"
+    port: int = 6379
+    db: int = 0
+    password: str = "password"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="aibot_",
@@ -38,6 +46,7 @@ class Settings(BaseSettings):
     provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
 
     db: DatabaseConfig = Field(default="default")
+    redis: RedisConfig = Field(default="default")
 
     @field_validator("provider", mode="before")
     @classmethod
