@@ -447,7 +447,7 @@ files = [
 
 [[package]]
 name = "g4f"
-version = "0.3.3.3"
+version = "0.3.3.4"
 summary = "The official gpt4free repository | various collection of powerful language models"
 groups = ["default"]
 dependencies = [
@@ -459,8 +459,8 @@ dependencies = [
     "requests",
 ]
 files = [
-    {file = "g4f-0.3.3.3-py3-none-any.whl", hash = "sha256:4d1736b9b2aa74f4f76d2bef4befe2cd2b5ab3b61054e246a1d39ffd3b5b73fc"},
-    {file = "g4f-0.3.3.3.tar.gz", hash = "sha256:05dfd1a54fd5838873024d582b44b7859839caf295dba2726043b62fce73d941"},
+    {file = "g4f-0.3.3.4-py3-none-any.whl", hash = "sha256:a24fbd550daa5532b3512bb6be363bc437162719c3c96780b922601a607dfe05"},
+    {file = "g4f-0.3.3.4.tar.gz", hash = "sha256:d3bc9456b0d89389440e6cfc6d11cc785ae6d493147fe36745c854f78332a59e"},
 ]
 
 [[package]]

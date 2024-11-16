@@ -6,8 +6,9 @@ from ai_telegram_bot.keyboards.donate import create as create_donate_kb
 
 
 async def cmd_donate(
-    message: Message, command: CommandObject, l10n: FluentLocalization
+    message: Message, command: CommandObject, l10n: FluentLocalization, aiogram_logger
 ) -> None:
+    aiogram_logger.debug("donate")
     if (
         command.args is None
         or not command.args.isdigit()
