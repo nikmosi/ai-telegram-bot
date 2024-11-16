@@ -65,10 +65,28 @@ services:
       - REDIS_DATABASES=0
     networks:
       - redis-network
+  ollama:
+    image: ollama/ollama
+    profiles:
+      - exclude
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: ["gpu"]
+    networks:
+      - app-network
 
 volumes:
   pgdata:
   redis_data:
+  ollama:
 
 networks:
   app-network:
