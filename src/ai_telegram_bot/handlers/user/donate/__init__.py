@@ -16,7 +16,9 @@ def prepare_router() -> Router:
     donate_router.message.register(cmd_paysupport, Command("paysupport"))
     donate_router.message.register(cmd_refund, Command("refund"))
     donate_router.pre_checkout_query.register(pre_checkout_query)
-    donate_router.callback_query.register(on_donate_cancel, F.data == "donate_cancel")
+    donate_router.callback_query.register(
+        on_donate_cancel, F.data == "cancel_donateion"
+    )
     donate_router.message.register(on_successfull_payment, F.successful_payment)
 
     return donate_router
