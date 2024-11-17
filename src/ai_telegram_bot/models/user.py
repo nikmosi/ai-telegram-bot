@@ -1,16 +1,8 @@
-from aiogram.types import Message
+from sqlalchemy.orm import Mapped, mapped_column
 
-from ai_telegram_bot.exceptions import CantGetFieldException
+from ai_telegram_bot.models import Base
 
 
-class UserInfo:
-    def __init__(self, message: Message):
-        id = message.from_user
-        if id is None:
-            raise CantGetFieldException(field_name=f"{message.from_user=}")
-        text = message.text
-        if text is None:
-            raise CantGetFieldException(field_name=f"{message.text=}")
-
-        self.id = id
-        self.text = text
+class User(Base):
+    tg_id: Mapped[int] = mapped_column(unique=True)
+    balance: Mapped[int]

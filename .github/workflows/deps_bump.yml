@@ -4,15 +4,18 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 5 * * *'
-  workflow_dispatch: 
+  workflow_dispatch:
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: pdm-project/setup-pdm@v4
-    - name: Update
+    - uses: pre-commit/action@v3.0.1
+    - name: Update python deps
       run: pdm update
+    - name: Update pre-commit deps
+      run: pre-commit autoupdate
     - name: Check for dependency updates
       run: |
         git config --global user.name "github-actions[bot]"

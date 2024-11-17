@@ -1,4 +1,5 @@
+from .base import Base
 from .gpt import GptArgs
-from .user import UserInfo
+from .user import User
 
-__all__ = ["UserInfo", "GptArgs"]
+__all__ = ["GptArgs", "Base", "User"]

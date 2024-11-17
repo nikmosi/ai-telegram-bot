@@ -25,8 +25,11 @@ RUN apt-get update && apt-get install -y ffmpeg \
 # retrieve packages from build stage
 COPY --from=builder /project/.venv/ /project/.venv
 ENV PATH="/project/.venv/bin:$PATH"
+ENV PATH "/project/scripts:${PATH}"
 COPY src /project/src
+COPY scripts /project/scripts
 
 
 WORKDIR /project
-CMD ["python", "src/main.py"]
+RUN chmod +x scripts/*
+ENTRYPOINT ["docker-entrypoint.sh"]
