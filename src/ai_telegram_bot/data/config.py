@@ -2,7 +2,9 @@ from typing import Any
 
 from g4f import Provider, ProviderType
 from g4f.Provider import ProviderUtils
-from pydantic import BaseModel, Field, PostgresDsn, field_validator
+from g4f.Provider.local import Ollama
+from loguru import logger
+from pydantic import BaseModel, ConfigDict, Field, PostgresDsn, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -30,6 +32,27 @@ class RedisConfig(BaseModel):
     password: str = "password"
 
 
+class GptConfig(BaseModel):
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+    )
+    api_base: str = "xxx"
+    proxy: str | None = None
+    model: str = "gpt-4o"
+    api_key: str | None = None
+    provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
+
+    @field_validator("provider", mode="before")
+    @classmethod
+    def validate_provider(cls, value: Any) -> ProviderType:
+        if isinstance(value, str):
+            if value == "Ollama":
+                return Ollama
+            return ProviderUtils().convert[value]
+        logger.error(f"can't get provider with {value=}")
+        return value
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="aibot_",
@@ -38,22 +61,12 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
     )
 
-    token: str = "xxx"
     admin_id: int = 5623396563
-    proxy: str | None = None
-    model: str = "gpt-4o"
-    api_key: str | None = None
-    provider: ProviderType = Field(default_factory=lambda: Provider.Bing)
+    token: str = "xxx"
 
     db: DatabaseConfig = Field(default="default")
-    redis: RedisConfig = Field(default="default")
-
-    @field_validator("provider", mode="before")
-    @classmethod
-    def validate_provider(cls, value: Any) -> ProviderType:
-        if isinstance(value, str):
-            return ProviderUtils().convert[value]
-        return value
+    redis: RedisConfig = RedisConfig()
+    gpt: GptConfig = GptConfig()
 
 
 settings = Settings()
