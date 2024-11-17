@@ -55,8 +55,8 @@ async def answer_on_text(text: str, gpt: Gpt) -> str:
     return response
 
 
-async def determine_taro_request(text: str, gpt: Gpt) -> bool:
+async def determine_taro_request(text: str, gpt: Gpt) -> str:
     logger.debug("taro request")
     response = await answer_on_text(text, gpt)
 
-    return "Да" in response.strip()
+    return response.strip().lower()
