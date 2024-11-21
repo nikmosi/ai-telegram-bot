@@ -38,15 +38,7 @@ You can run the bot using Docker. Follow these steps:
    ```bash
    docker build -t ai_telegram_bot .
    ```
-
-3. **Create a `.env` file in the root directory with the following variables**:
-
-   ```
-   aibot_token=YOUR_TELEGRAM_BOT_TOKEN
-   aibot_admin_id=YOUR_ADMIN_ID
-   aibot_proxy=YOUR_PROXY (optional)
-   aibot_api_key=YOUR_API_KEY (optional)
-   ```
+3. **copy `.env.example` to `.env` file in the root directory and fill values**:
 
 4. **Run the Docker container**:
 

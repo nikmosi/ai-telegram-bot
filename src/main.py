@@ -5,7 +5,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio import ConnectionPool, Redis
 
-from ai_telegram_bot.data.config import Settings
+from ai_telegram_bot.data import settings
 from ai_telegram_bot.handlers.user import prepare_router as prepare_user_router
 from ai_telegram_bot.middlewares import (
     L10nMiddleware,
@@ -15,8 +15,6 @@ from ai_telegram_bot.middlewares import (
 from ai_telegram_bot.utils import gpt_provider
 from ai_telegram_bot.utils.fluent import get_fluent_localization
 from ai_telegram_bot.utils.logging import setup_logger
-
-settings = Settings()
 
 
 def setup_logging(dispatcher: Dispatcher) -> None:

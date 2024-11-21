@@ -40,3 +40,5 @@ jobs:
             .venv
       - name: Install dependencies
         run: pdm install -G dev
+      - name: run mypy
+        run: pdm mypy

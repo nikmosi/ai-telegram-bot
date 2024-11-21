@@ -16,17 +16,14 @@ async def handle_message(message: Message, gpt_provider: GptProvider) -> None:
     gpt = gpt_provider.get(user_id)
     taro = gpt_provider.get_taro_gpt(user_id)
 
-    pending = []
-
     async with TaskGroup() as tg:
-        pending.append(tg.create_task(determine_taro_request(text, taro)))
-        pending.append(tg.create_task(answer_on_text(text, gpt)))
+        taro_task = tg.create_task(determine_taro_request(text, taro))
+        gpt_task = tg.create_task(answer_on_text(text, gpt))
 
-    pending = [await task for task in pending]
+    is_taro_request = await taro_task
+    response = await gpt_task
 
-    is_taro_request, response = pending
-
-    if is_taro_request:
+    if "да" in is_taro_request:
         await play(message)
     else:
         await message.reply(response)

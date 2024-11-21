@@ -1,12 +1,16 @@
 from aiogram.filters.command import CommandObject
 from aiogram.types import CallbackQuery, LabeledPrice, Message
 from fluent.runtime import FluentLocalization
+from loguru import Logger
 
 from ai_telegram_bot.keyboards.donate import create as create_donate_kb
 
 
 async def cmd_donate(
-    message: Message, command: CommandObject, l10n: FluentLocalization, aiogram_logger
+    message: Message,
+    command: CommandObject,
+    l10n: FluentLocalization,
+    aiogram_logger: Logger,
 ) -> None:
     aiogram_logger.debug("donate")
     if (
