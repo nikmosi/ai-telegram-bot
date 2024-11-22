@@ -13,7 +13,7 @@ jobs:
     - uses: pdm-project/setup-pdm@v4
     - uses: pre-commit/action@v3.0.1
     - name: Update python deps
-      run: pdm update
+      run: pdm update -u
     - name: Update pre-commit deps
       run: pre-commit autoupdate
     - name: Check for dependency updates
