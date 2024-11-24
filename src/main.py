@@ -2,8 +2,6 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
-from aiogram.fsm.storage.redis import RedisStorage
-from redis.asyncio import ConnectionPool, Redis
 
 from ai_telegram_bot.data import settings
 from ai_telegram_bot.handlers.user import prepare_router as prepare_user_router
@@ -12,7 +10,7 @@ from ai_telegram_bot.middlewares import (
     LoggingMiddleware,
     SessionMiddleware,
 )
-from ai_telegram_bot.utils import gpt_provider
+from ai_telegram_bot.utils import cache, gpt_provider
 from ai_telegram_bot.utils.fluent import get_fluent_localization
 from ai_telegram_bot.utils.logging import setup_logger
 
@@ -21,20 +19,12 @@ def setup_logging(dispatcher: Dispatcher) -> None:
     dispatcher["aiogram_logger"] = setup_logger()
 
 
-def setup_redis() -> RedisStorage:
-    rc = settings.redis
-
-    redis = Redis(
-        connection_pool=ConnectionPool.from_url(
-            f"redis://{rc.username}:{rc.password}@{rc.host}:{rc.port}/{rc.db}"
-        )
-    )
-
-    return RedisStorage(redis)
-
-
 def setup_gpt_provider(dispatcher: Dispatcher) -> None:
     dispatcher["gpt_provider"] = gpt_provider.setup_gpt_provider()
+
+
+def setup_redis_cache(dispatcher: Dispatcher) -> None:
+    dispatcher["redis"] = cache.setup_redis_cache()
 
 
 async def setup_handlers(dispatcher: Dispatcher) -> None:
@@ -50,6 +40,7 @@ def setup_middlewares(dispatcher: Dispatcher) -> None:
 async def setup_aiogram(dispatcher: Dispatcher) -> None:
     setup_logging(dispatcher)
     setup_gpt_provider(dispatcher)
+    setup_redis_cache(dispatcher)
     logger = dispatcher["aiogram_logger"]
 
     logger.debug("Configuring aiogram")
@@ -69,7 +60,7 @@ async def aiogram_on_shutdown_polling(dispatcher: Dispatcher, bot: Bot) -> None:
 
 
 async def main() -> None:
-    redis = setup_redis()
+    redis = cache.setup_redis_storage()
     dp = Dispatcher(storage=redis)
     bot = Bot(token=settings.token, default=DefaultBotProperties(parse_mode="HTML"))
     dp.startup.register(aiogram_on_startup_polling)
