@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.filters import Command, StateFilter
 
-from src.ai_telegram_bot.states import user
+from ai_telegram_bot.states import user
 
 from .additional_info import handle_message, handle_voice_message
 from .cmd_continue import cmd_continue

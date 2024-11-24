@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.filters import StateFilter
 
-from src.ai_telegram_bot.states import user
+from ai_telegram_bot.states import user
 
 from . import text, voice
 
