@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import loguru
 from aiogram.filters.command import CommandObject
 from aiogram.types import CallbackQuery, LabeledPrice, Message
