@@ -28,7 +28,8 @@ class RedisConfig(BaseModel):
     username: str = "default"
     host: str = "redis"
     port: int = 6379
-    db: int = 0
+    db_storage: int = 0
+    db_cache: int = 1
     password: str = "password"
 
 
