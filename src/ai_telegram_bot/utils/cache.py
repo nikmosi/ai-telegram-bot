@@ -1,3 +1,6 @@
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
+
 from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio import ConnectionPool, Redis
 
@@ -19,5 +22,10 @@ def setup_redis_storage() -> RedisStorage:
     return RedisStorage(redis)
 
 
-def setup_redis_cache() -> Redis:
-    return setup_redis(settings.redis.db_cache)
+@asynccontextmanager
+async def setup_redis_cache() -> AsyncGenerator[Redis, None]:
+    redis = setup_redis(settings.redis.db_cache)
+    try:
+        yield redis
+    finally:
+        await redis.close()
