@@ -10,6 +10,7 @@ from ai_telegram_bot.middlewares import (
     LoggingMiddleware,
     SessionMiddleware,
 )
+from ai_telegram_bot.middlewares.cache import CacheMiddleware
 from ai_telegram_bot.utils import cache, gpt_provider
 from ai_telegram_bot.utils.fluent import get_fluent_localization
 from ai_telegram_bot.utils.logging import setup_logger
@@ -23,10 +24,6 @@ def setup_gpt_provider(dispatcher: Dispatcher) -> None:
     dispatcher["gpt_provider"] = gpt_provider.setup_gpt_provider()
 
 
-def setup_redis_cache(dispatcher: Dispatcher) -> None:
-    dispatcher["redis"] = cache.setup_redis_cache()
-
-
 async def setup_handlers(dispatcher: Dispatcher) -> None:
     dispatcher.include_router(prepare_user_router())
 
@@ -35,12 +32,12 @@ def setup_middlewares(dispatcher: Dispatcher) -> None:
     dispatcher.update.outer_middleware(LoggingMiddleware())
     dispatcher.update.outer_middleware(L10nMiddleware(get_fluent_localization()))
     dispatcher.update.outer_middleware(SessionMiddleware())
+    dispatcher.update.outer_middleware(CacheMiddleware())
 
 
 async def setup_aiogram(dispatcher: Dispatcher) -> None:
     setup_logging(dispatcher)
     setup_gpt_provider(dispatcher)
-    setup_redis_cache(dispatcher)
     logger = dispatcher["aiogram_logger"]
 
     logger.debug("Configuring aiogram")
