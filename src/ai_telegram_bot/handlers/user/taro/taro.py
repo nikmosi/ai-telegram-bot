@@ -27,17 +27,16 @@ async def cmd_taro_end(
     if not message.from_user:
         return
     user_id = message.from_user.id
-    additional_info = redis.get(f"taro_{user_id}")
+    additional_info = (await redis.get(f"taro_{user_id}")).decode()
     taro_gpt = gpt_provider.get_taro_gpt(user_id)
     promt = ""
 
     prediction = get_prediction()
-    promt += f"taro predication: {prediction}"
+    promt += f"# предсказание таро: \n{prediction}\n\n"
     if additional_info:
-        promt += f"user comment: {additional_info}"
+        promt += f"# допольнительная информация от пользователя\n {additional_info}\n"
         gpt_answer = await answer_on_text(promt, taro_gpt)
-        await message.answer(prediction)
-        await message.answer(gpt_answer)
+        await message.answer(f"{prediction}\n\n{gpt_answer}")
     else:
         await message.answer(prediction)
     await state.set_state(user.UserGpt.taro)
