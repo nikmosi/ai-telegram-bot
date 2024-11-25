@@ -16,7 +16,7 @@ async def handle_message(
         return
 
     user_id = message.from_user.id
-    redis.set(f"taro_{user_id}", message.text)
+    await redis.set(f"taro_{user_id}", message.text)
     await state.set_state(user.UserTaro.play)
     await cmd_taro_end(message, redis, state, gpt_provider)
 
