@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:914530982fcae28d3d432d46e845695f3961797487d8e7053809ce21c411a486"
+content_hash = "sha256:d38cc0698551e2d63cd500d4a21ac8e9906357e4331992a7520dde1c3106801b"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -385,7 +385,7 @@ files = [
 
 [[package]]
 name = "g4f"
-version = "0.3.6.1"
+version = "0.3.7.1"
 summary = "The official gpt4free repository | various collection of powerful language models"
 groups = ["default"]
 dependencies = [
@@ -396,22 +396,22 @@ dependencies = [
     "requests",
 ]
 files = [
-    {file = "g4f-0.3.6.1-py3-none-any.whl", hash = "sha256:935700e0f12d3406522619d140e41515df9056f9f2bf2c49a11f2983f43ccb97"},
-    {file = "g4f-0.3.6.1.tar.gz", hash = "sha256:8e2bc4502aeefaa3e7959c1c2f7b583759d00e158d3ee19c55ee71f644fe9401"},
+    {file = "g4f-0.3.7.1-py3-none-any.whl", hash = "sha256:47056a7ae28d976523c95a9a7fc112507059f93c49eb226deecdaf5c1770530e"},
+    {file = "g4f-0.3.7.1.tar.gz", hash = "sha256:38246635ae4372c470284eeabdcc8e2ddc572733ea57ddc0f53ad1b830d3ef0f"},
 ]
 
 [[package]]
 name = "g4f"
-version = "0.3.6.1"
+version = "0.3.7.1"
 extras = ["openai"]
 summary = "The official gpt4free repository | various collection of powerful language models"
 groups = ["default"]
 dependencies = [
-    "g4f==0.3.6.1",
+    "g4f==0.3.7.1",
 ]
 files = [
-    {file = "g4f-0.3.6.1-py3-none-any.whl", hash = "sha256:935700e0f12d3406522619d140e41515df9056f9f2bf2c49a11f2983f43ccb97"},
-    {file = "g4f-0.3.6.1.tar.gz", hash = "sha256:8e2bc4502aeefaa3e7959c1c2f7b583759d00e158d3ee19c55ee71f644fe9401"},
+    {file = "g4f-0.3.7.1-py3-none-any.whl", hash = "sha256:47056a7ae28d976523c95a9a7fc112507059f93c49eb226deecdaf5c1770530e"},
+    {file = "g4f-0.3.7.1.tar.gz", hash = "sha256:38246635ae4372c470284eeabdcc8e2ddc572733ea57ddc0f53ad1b830d3ef0f"},
 ]
 
 [[package]]
